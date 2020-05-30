@@ -1,15 +1,11 @@
 import {
     ISwaggerInfo,
-    ISwaggerDefinition,
-    ISwaggerDefinitionProperty,
     ISwaggerExternalDocs,
-    ISwaggerOperationResponse,
 } from './i-swagger';
 import * as assert from 'assert';
 import { SwaggerService } from './swagger.service';
-import { SwaggerDefinitionConstant } from './swagger-definition.constant';
 import {
-    IApiOperationArgsBaseParameter,
+    IApiOperationArgsBaseParameters,
     IApiOperationArgsBaseResponse,
 } from './i-api-operation-args.base';
 
@@ -162,6 +158,12 @@ export interface ISwaggerBuildDefinition {
      * Optional.
      */
     responses?: { [key: string]: IApiOperationArgsBaseResponse };
+
+    /**
+     * Define global parameters.
+     * Optional.
+     */
+    parameters?: IApiOperationArgsBaseParameters;
 }
 
 export function build(buildDefinition: ISwaggerBuildDefinition): void {
