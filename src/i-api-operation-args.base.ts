@@ -6,7 +6,7 @@ export interface IApiOperationArgsBaseParameter {
     format?: string;
     minimum?: number;
     maximum?: number;
-    default?: number;
+    default?: any;
     deprecated?: boolean;
     allowEmptyValue?: boolean;
 }
