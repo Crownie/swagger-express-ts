@@ -1,6 +1,6 @@
 {
     "name": "@crownie/swagger-express-ts",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Generate and serve swagger.json",
     "main": "index.js",
     "types": "index.d.ts",
