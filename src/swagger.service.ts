@@ -9,6 +9,7 @@ import {
     IApiBodyOperationArgsBaseParameter,
     IApiOperationArgsBase,
     IApiOperationArgsBaseParameter,
+    IApiOperationArgsBaseParameters,
     IApiOperationArgsBaseResponse,
 } from './i-api-operation-args.base';
 import {
@@ -33,7 +34,6 @@ import {
     ISwaggerBuildDefinitionModelProperty,
     ISwaggerSecurityDefinition,
 } from './swagger.builder';
-import { IApiOperationArgsBaseParameters } from '../dist/i-api-operation-args.base';
 
 interface IPath {
     path: string;
