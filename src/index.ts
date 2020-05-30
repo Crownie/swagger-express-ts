@@ -30,7 +30,7 @@ export { IApiModelArgs, ApiModel } from './api-model.decorator';
 
 export { SwaggerDefinitionConstant } from './swagger-definition.constant';
 export { express, ISwaggerExpressOptions } from './express.configurator';
-export { build } from './swagger.builder';
+export * from './swagger.builder';
 export * from './i-swagger';
 export * from './i-api-operation-args.base';
 export * from './swagger.service';
