@@ -33,6 +33,7 @@ import {
     ISwaggerBuildDefinitionModelProperty,
     ISwaggerSecurityDefinition,
 } from './swagger.builder';
+import { IApiOperationArgsBaseParameters } from '../dist/i-api-operation-args.base';
 
 interface IPath {
     path: string;
@@ -66,6 +67,7 @@ export class SwaggerService {
     private data: ISwagger;
     private modelsMap: { [key: string]: ISwaggerBuildDefinitionModel } = {};
     private globalResponses: { [key: string]: IApiOperationArgsBaseResponse };
+    private globalParameters: IApiOperationArgsBaseParameters;
 
     public resetData(): void {
         this.controllerMap = [];
@@ -165,6 +167,10 @@ export class SwaggerService {
         [key: string]: IApiOperationArgsBaseResponse;
     }): void {
         this.globalResponses = this.buildOperationResponses(globalResponses);
+    }
+
+    public setGlobalParameters(globalParameters: IApiOperationArgsBaseParameters):void{
+        this.globalParameters = globalParameters;
     }
 
     public addPath(args: IApiPathArgs, target: any): void {
@@ -753,6 +759,12 @@ export class SwaggerService {
             operation.responses = _.mergeWith(
                 _.cloneDeep(this.globalResponses),
                 operation.responses
+            );
+        }
+        if (this.globalParameters) {
+            operation.responses = _.mergeWith(
+                _.cloneDeep(this.globalParameters),
+                operation.parameters
             );
         }
         operation.tags = [_.upperFirst(controller.name)];

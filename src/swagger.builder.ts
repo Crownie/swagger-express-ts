@@ -211,5 +211,10 @@ export function build(buildDefinition: ISwaggerBuildDefinition): void {
             buildDefinition.responses
         );
     }
+    if (buildDefinition.parameters) {
+        SwaggerService.getInstance().setGlobalParameters(
+            buildDefinition.parameters
+        );
+    }
     SwaggerService.getInstance().buildSwagger();
 }
