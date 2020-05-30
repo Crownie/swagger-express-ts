@@ -61,7 +61,7 @@ built/
 dist/
 reports/
 config.json
-src/**/*.js
+demo/**/*.js
 example/**/*.js
 .idea
 .vscode

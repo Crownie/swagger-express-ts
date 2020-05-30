@@ -74,6 +74,7 @@ export class SwaggerDefinitionConstant {
             FORM_DATA: 'formData',
             PATH: 'path',
             QUERY: SwaggerDefinitionConstant.QUERY,
+            HEADER: 'header',
         },
         Type: {
             ARRAY: SwaggerDefinitionConstant.ARRAY,

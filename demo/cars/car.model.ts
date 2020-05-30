@@ -1,4 +1,4 @@
-import { ApiModel, ApiModelProperty } from 'swagger-express-ts';
+import { ApiModel, ApiModelProperty } from '@crownie/swagger-express-ts';
 import { ConstructorModel } from '../constructors/constructor.model';
 
 @ApiModel({

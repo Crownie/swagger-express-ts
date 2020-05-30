@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as _ from 'lodash';
-import { IApiModelArgs } from '.';
+import { IApiModelArgs } from './';
 import { IApiModelPropertyArgs } from './api-model-property.decorator';
 import { IApiOperationGetArgs } from './api-operation-get.decorator';
 import { IApiOperationPostArgs } from './api-operation-post.decorator';
@@ -478,6 +478,15 @@ export class SwaggerService {
 
         if (args.parameters) {
             operation.parameters = [];
+            if (args.parameters.header) {
+                operation.parameters = _.concat(
+                    operation.parameters,
+                    this.buildParameters(
+                        SwaggerDefinitionConstant.Parameter.In.HEADER,
+                        args.parameters.header
+                    )
+                );
+            }
             if (args.parameters.path) {
                 operation.parameters = _.concat(
                     operation.parameters,

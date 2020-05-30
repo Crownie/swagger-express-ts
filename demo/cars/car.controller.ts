@@ -10,7 +10,7 @@ import {
     ApiPath,
     SwaggerDefinitionConstant,
     ApiOperationGet,
-} from 'swagger-express-ts';
+} from '@crownie/swagger-express-ts';
 import * as express from 'express';
 import { CarsService } from './cars.service';
 

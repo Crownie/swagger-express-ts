@@ -2,7 +2,7 @@ import {
     ApiModel,
     ApiModelProperty,
     SwaggerDefinitionConstant,
-} from 'swagger-express-ts';
+} from '@crownie/swagger-express-ts';
 
 @ApiModel({
     description: 'Description Constructor.',
