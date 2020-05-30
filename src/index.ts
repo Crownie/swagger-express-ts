@@ -33,3 +33,4 @@ export { express, ISwaggerExpressOptions } from './express.configurator';
 export { build } from './swagger.builder';
 export * from './i-swagger';
 export * from './i-api-operation-args.base';
+export * from './swagger.service';
