@@ -762,7 +762,7 @@ export class SwaggerService {
             );
         }
         if (this.globalParameters) {
-            operation.responses = _.mergeWith(
+            operation.parameters = _.mergeWith(
                 _.cloneDeep(this.globalParameters),
                 operation.parameters
             );
