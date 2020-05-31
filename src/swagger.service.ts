@@ -67,7 +67,7 @@ export class SwaggerService {
     private data: ISwagger;
     private modelsMap: { [key: string]: ISwaggerBuildDefinitionModel } = {};
     private globalResponses: { [key: string]: IApiOperationArgsBaseResponse };
-    private globalParameters: IApiOperationArgsBaseParameters;
+    private globalParameters: ISwaggerOperationParameter[];
 
     public resetData(): void {
         this.controllerMap = [];
@@ -170,7 +170,7 @@ export class SwaggerService {
     }
 
     public setGlobalParameters(globalParameters: IApiOperationArgsBaseParameters):void{
-        this.globalParameters = globalParameters;
+        this.globalParameters = this.buildOperationParameters(globalParameters);
     }
 
     public addPath(args: IApiPathArgs, target: any): void {
@@ -483,49 +483,7 @@ export class SwaggerService {
         }
 
         if (args.parameters) {
-            operation.parameters = [];
-            if (args.parameters.header) {
-                operation.parameters = _.concat(
-                    operation.parameters,
-                    this.buildParameters(
-                        SwaggerDefinitionConstant.Parameter.In.HEADER,
-                        args.parameters.header
-                    )
-                );
-            }
-            if (args.parameters.path) {
-                operation.parameters = _.concat(
-                    operation.parameters,
-                    this.buildParameters(
-                        SwaggerDefinitionConstant.Parameter.In.PATH,
-                        args.parameters.path
-                    )
-                );
-            }
-            if (args.parameters.query) {
-                operation.parameters = _.concat(
-                    operation.parameters,
-                    this.buildParameters(
-                        SwaggerDefinitionConstant.Parameter.In.QUERY,
-                        args.parameters.query
-                    )
-                );
-            }
-            if (args.parameters.body) {
-                operation.parameters = _.concat(
-                    operation.parameters,
-                    this.buildBodyOperationParameter(args.parameters.body)
-                );
-            }
-            if (args.parameters.formData) {
-                operation.parameters = _.concat(
-                    operation.parameters,
-                    this.buildParameters(
-                        SwaggerDefinitionConstant.Parameter.In.FORM_DATA,
-                        args.parameters.formData
-                    )
-                );
-            }
+            operation.parameters = this.buildOperationParameters(args.parameters);
         }
 
         if (args.responses) {
@@ -537,6 +495,53 @@ export class SwaggerService {
         }
 
         return operation;
+    }
+
+    private buildOperationParameters(parameterArgs:IApiOperationArgsBaseParameters){
+        let parameters: ISwaggerOperationParameter[] = [];
+        if (parameterArgs.header) {
+            parameters = _.concat(
+               parameters,
+                this.buildParameters(
+                    SwaggerDefinitionConstant.Parameter.In.HEADER,
+                    parameterArgs.header
+                )
+            );
+        }
+        if (parameterArgs.path) {
+            parameters = _.concat(
+                parameters,
+                this.buildParameters(
+                    SwaggerDefinitionConstant.Parameter.In.PATH,
+                    parameterArgs.path
+                )
+            );
+        }
+        if (parameterArgs.query) {
+            parameters = _.concat(
+                parameters,
+                this.buildParameters(
+                    SwaggerDefinitionConstant.Parameter.In.QUERY,
+                    parameterArgs.query
+                )
+            );
+        }
+        if (parameterArgs.body) {
+            parameters = _.concat(
+                parameters,
+                this.buildBodyOperationParameter(parameterArgs.body)
+            );
+        }
+        if (parameterArgs.formData) {
+            parameters = _.concat(
+                parameters,
+                this.buildParameters(
+                    SwaggerDefinitionConstant.Parameter.In.FORM_DATA,
+                    parameterArgs.formData
+                )
+            );
+        }
+        return parameters;
     }
 
     private buildOperationResponses(responses: {
@@ -762,10 +767,7 @@ export class SwaggerService {
             );
         }
         if (this.globalParameters) {
-            operation.parameters = _.mergeWith(
-                _.cloneDeep(this.globalParameters),
-                operation.parameters
-            );
+            operation.parameters = [...(this.globalParameters||[]), ...(operation.parameters||[])];
         }
         operation.tags = [_.upperFirst(controller.name)];
         return operation;
