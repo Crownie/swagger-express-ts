@@ -110,7 +110,8 @@
     "nodemonConfig": {
         "restartable": "rs",
         "watch": [
-            "src/**/*.ts"
+            "src/**/*.ts",
+            "demo/**/*.ts"
         ],
         "ext": "ts",
         "ignore": [
@@ -120,7 +121,7 @@
             "node_modules/*",
             "dist/*"
         ],
-        "delay": "2500",
+        "delay": 2500,
         "exec": "npm run start"
     },
     "husky": {
