@@ -9,6 +9,7 @@ import {
 } from 'inversify-express-utils';
 import { CarsController } from './cars/cars.controller';
 import * as swagger from '@crownie/swagger-express-ts';
+// tslint:disable-next-line:no-duplicate-imports
 import { SwaggerDefinitionConstant } from '@crownie/swagger-express-ts';
 import { CarController } from './cars/car.controller';
 import { CarsService } from './cars/cars.service';
@@ -74,6 +75,9 @@ server.setConfig((app: any) => {
                 responses: {
                     500: {},
                 },
+                parameters:{
+                    header:{client:{type:'string',default:'core'}}
+                },
                 externalDocs: {
                     url: 'My url',
                 },
@@ -105,7 +109,11 @@ server.setErrorConfig((app: any) => {
 
 const app = server.build();
 
+const port = 8080;
 if (!_.isEqual(process.env.NODE_ENV, 'test')) {
-    app.listen(8080);
-    console.info('Server is listening on port : ' + 8080);
+    app.listen(port);
+    console.info('Server is listening on port : ' + port);
+    console.log(
+        `For documentation, visit: http://localhost:${port}/api-docs/swagger`,
+    );
 }
